@@ -163,7 +163,7 @@ if st.session_state.page == "home":
     query = """SELECT * FROM Food_Order_Details"""
 
     if count == 0:
-        with st.spinner("Loading and inserting data..."):
+        with st.spinner("Loading and inserting data...ᯓ🏃🏻‍♀️‍➡️"):
             food_df = Food_Delivery_Cleaning(load_data())
             food_df.to_sql(
                 "Food_Order_Details",
@@ -199,7 +199,7 @@ if st.session_state.page == "home":
 
 elif st.session_state.page == "Analysis":
 
-    st.subheader("Online Food Delivery Analysis: Data-Driven Business Insights")
+    st.subheader("Online Food Delivery Analysis ⚡ Data-Driven Business Insights")
 
     st.markdown("""
 <style>
