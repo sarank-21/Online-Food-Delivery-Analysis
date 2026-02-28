@@ -25,6 +25,8 @@ st.title("🚚 Online Food Delivery Analysis 🍔")
 if "page" not in st.session_state:
     st.session_state.page = "home"
 
+if "db_checked" not in st.session_state:
+    st.session_state.db_checked = False
 # --------------------------------------------------
 # DATABASE CONNECTION
 # --------------------------------------------------
@@ -156,38 +158,39 @@ def load_data():
 
 if st.session_state.page == "home":
 
+    query = "SELECT * FROM Food_Order_Details"
+
     with db_engine.connect() as conn:
         result = conn.execute(text("SELECT COUNT(*) FROM Food_Order_Details"))
         count = result.scalar()
 
-    query = """SELECT * FROM Food_Order_Details"""
+    # 🚀 Run this block ONLY first time app loads
+    if not st.session_state.db_checked:
 
-    if count == 0:
-        with st.spinner("Loading and inserting data...ᯓ🏃🏻‍♀️‍➡️"):
-            food_df = Food_Delivery_Cleaning(load_data())
-            food_df.to_sql(
-                "Food_Order_Details",
-                db_engine,
-                if_exists="append",
-                index=False
-            )
+        if count == 0:
+            with st.spinner("Loading and inserting data...ᯓ🏃🏻‍♀️‍➡️"):
+                food_df = Food_Delivery_Cleaning(load_data())
 
-        st.success("✅ Data Inserted Successfully")
+                food_df.to_sql(
+                    "Food_Order_Details",
+                    db_engine,
+                    if_exists="append",
+                    index=False
+                )
 
-        df = pd.read_sql(query, db_engine)
-        st.dataframe(df, use_container_width=True)
+            st.success("✅ Data Inserted Successfully")
 
-        # 🔹 Show Total Rows
-        st.info(f"🗂️ Total Records in Table From 2012 to 2022: {len(df)}")
+        else:
+            st.info("📌 Data Already Inserted")
 
-    else:
-        st.warning("🚨 Data Already Inserted")
+        # Mark as checked so message never shows again
+        st.session_state.db_checked = True
 
-        df = pd.read_sql(query, db_engine)
-        st.dataframe(df, use_container_width=True)
+    # 🔹 Always display data
+    df = pd.read_sql(query, db_engine)
+    st.dataframe(df, use_container_width=True)
 
-        # 🔹 Show Total Rows
-        st.info(f"🗂️ Total Records in Table From 2012 to 2022: {count}")
+    st.info(f"🗂️ Total Records in Table From 2012 to 2022: {len(df)}")
 
     if st.button("🔎 Analysis Page"):
         st.session_state.page = "Analysis"
