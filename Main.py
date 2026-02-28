@@ -78,7 +78,9 @@ with db_engine.connect() as conn:
     """))
     conn.commit()
 
-
+# --------------------------------------------------
+# DATA CLEANING AND PREPROCESSING
+# --------------------------------------------------
 
 def Food_Delivery_Cleaning(food_df):
     food_df.dropna(subset="Order_Date",inplace=True)
