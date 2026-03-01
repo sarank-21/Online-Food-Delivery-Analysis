@@ -278,3 +278,14 @@ These enhancements will make the platform smarter, predictive, and more actionab
 * Covers various dimensions including age group behavior, peak hour demand, cuisine performance, delivery efficiency, and cancellation trends.
 * Designed for **data-driven decision making** for restaurants, delivery partners, and online food platforms
 
+## 📌 Author
+```
+Saran K
+Data Analytics & Visualization Enthusiast
+Capstone Project – Online Food Delivery Analysis
+```
+## ⭐ If You Like This Project
+
+```
+Give it a ⭐ on GitHub and feel free to fork it!
+```
